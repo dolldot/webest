@@ -25,3 +25,23 @@ jobs:
         with:
           push: true
           tags: dolldot/webest:${{ github.sha }}
+
+      - name: Checkout Target Repository
+        uses: actions/checkout@v4
+        with:
+          repository: dolldot/manifests
+          path: tenants/webest
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Update Image Tag
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'values.yaml'
+          propertyPath: 'image.tag'
+          value: ${{ github.sha }}
+          repository: dolldot/manifests
+          branch: deployment/${{ github.sha }}
+          targetBranch: main
+          createPR: true
+          message: 'Update Image Tag to ${{ steps.image.outputs.version }}'
+          token: ${{ secrets.GH_TOKEN }}
+          workDir: tenants/webest
