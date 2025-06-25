@@ -26,6 +26,11 @@ jobs:
           push: true
           tags: dolldot/webest:${{ github.sha }}
 
+  commit-change:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
       - name: Checkout Target Repository
         uses: actions/checkout@v4
         with:
