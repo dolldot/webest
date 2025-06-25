@@ -44,6 +44,7 @@ jobs:
           propertyPath: 'image.tag'
           value: ${{ github.sha }}
           repository: dolldot/manifests
+          masterBranchName: main
           branch: deployment/${{ github.sha }}
           targetBranch: main
           createPR: true
