@@ -48,5 +48,5 @@ jobs:
           targetBranch: main
           createPR: true
           message: 'Update Image Tag to ${{ github.sha }}'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           workDir: manifests
