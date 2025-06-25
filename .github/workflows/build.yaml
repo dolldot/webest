@@ -31,7 +31,7 @@ jobs:
         with:
           repository: dolldot/manifests
           path: manifests
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update Image Tag
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -42,6 +42,6 @@ jobs:
           branch: deployment/${{ github.sha }}
           targetBranch: main
           createPR: true
-          message: 'Update Image Tag to ${{ steps.image.outputs.version }}'
-          token: ${{ secrets.GH_TOKEN }}
+          message: 'Update Image Tag to ${{ github.sha }}'
+          token: ${{ secrets.GITHUB_TOKEN }}
           workDir: manifests
