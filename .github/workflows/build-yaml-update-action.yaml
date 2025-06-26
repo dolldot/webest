@@ -26,7 +26,7 @@ jobs:
           push: true
           tags: dolldot/webest:${{ github.sha }}
 
-  commit-change:
+  create-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
