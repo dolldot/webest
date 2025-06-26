@@ -38,7 +38,7 @@ jobs:
         with:
           repository: dolldot/manifests
           path: manifests
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Set variables
         run: |
           commit_hash=${{ github.sha }}
