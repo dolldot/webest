@@ -1,4 +1,4 @@
-name: Build
+name: Build using yaml-update-action
 
 on:
   push:
@@ -39,19 +39,17 @@ jobs:
           repository: dolldot/manifests
           path: manifests
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set variables
-        run: |
-          commit_hash=${{ github.sha }}
-          IMAGE_TAG=${commit_hash::7}
-          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
-          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_OUTPUT
       - name: Update values.yaml
-        working-directory: manifests
-        run: |
-          MANIFEST_PATH=tenants/webest
-          sed -i "s/tag: .*/tag: ${IMAGE_TAG}/" ${MANIFEST_PATH}/values.yaml
-          git add .
-          git config user.name dotbot
-          git config user.email dotbot@dummy.com
-          git commit -a -m "Update manifest ${MANIFEST_PATH}"
-          git push
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'tenants/webest/values.yaml'
+          propertyPath: 'image.tag'
+          value: ${{ github.sha }}
+          repository: dolldot/manifests
+          masterBranchName: main
+          branch: deployment/${{ github.sha }}
+          targetBranch: main
+          createPR: true
+          message: 'Update Image Tag to ${{ github.sha }}'
+          token: ${{ secrets.GH_TOKEN }}
+          workDir: manifests
