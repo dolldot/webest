@@ -1,4 +1,4 @@
-name: Build
+name: Build PR
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
           push: true
           tags: dolldot/webest:${{ github.sha }}
 
-  commit-change:
+  create-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -56,6 +56,5 @@ jobs:
           MANIFEST_PATH=tenants/webest
           sed -i "s/tag: .*/tag: ${IMAGE_TAG}/" ${MANIFEST_PATH}/values.yaml
           git add .
-
           git commit -m "Update manifest ${MANIFEST_PATH}"
           git push
