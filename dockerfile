@@ -5,7 +5,6 @@ WORKDIR /app
 COPY . .
 RUN hugo
 
-
 # Stage 2
 FROM nginx:1.25-alpine
 WORKDIR /usr/share/nginx/html
