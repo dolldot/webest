@@ -47,7 +47,7 @@ jobs:
       - name: Update deployment manifest
         working-directory: manifests
         run: |
-          manifests=["tenants/webest/values.yaml"]
+          manifests='["tenants/webest/values.yaml"]'
           echo "$manifests" | jq -r '.[]' | while read -r manifest; do
             sed -i "s/tag: .*/tag: \"${IMAGE_TAG}\"/" $manifest
           done
